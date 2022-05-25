@@ -1,4 +1,6 @@
 <?php
+  require '../controller/connect_info.php';
+
   $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
 
   if (!$conn) {
@@ -24,4 +26,10 @@
       die("Страница только для роли " . $user_role_name);
     }
   }
+
+  $secure_data = fn($data) => strip_tags(htmlspecialchars($data));
+
+  $get_post = fn($str_data, $default) => isset($_POST[$str_data]) ? $_POST[$str_data] : $default;
+
+  $get_GET = fn($str_data, $default) => isset($_GET[$str_data]) ? $_GET[$str_data] : $default;
 ?>

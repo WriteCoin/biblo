@@ -1,13 +1,14 @@
 <?php 
-  require '/controller/api.php';
+  require '../controller/api.php';
   $title = 'Регистрация';
-  require '/templates/header.php'; 
+  require '../controller/signup.php';
+  require '../templates/header.php'; 
 ?>
 
 <h2>Регистрация</h2>
 
-<form action="/views/signup.php" method="post">
-  <label for="first_name">Ваше ФИО:</label>
+<form action="../views/signup.php" method="post">
+  <label for="fio">Ваше ФИО:</label>
   <input type="text" name="fio" placeholder="Введите ФИО">
 
   <label for="user_name">Ваш логин:</label>
@@ -24,7 +25,7 @@
   <button class="btn-btn small" name="do_signup" type="submit">Зарегистрировать</button>
 </form>
 <br>
-<a href="/views/login.php">Авторизация</a>
-<p>Вернуться на <a href="/views/index.php">главную</a>.</p>
+<a href="../views/login.php">Авторизация</a>
+<p>Вернуться на <a href="../views/index.php">главную</a>.</p>
 
-<?php require '/templates/footer.php'; ?>
+<?php require '../templates/footer.php'; ?>

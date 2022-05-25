@@ -15,7 +15,7 @@
     if (!$user) {
       $errors[] = "Пользователь с таким логином не найден!";
     } else {
-      $client_query = pg_query_params($conn, 'SELECT * FROM clients WHERE person_id = $1;', Array($user->id));
+      $client_query = pg_query_params($conn, 'SELECT * FROM reader WHERE person_id = $1;', Array($user->id));
       $client = pg_fetch_object($client_query);
 
       if (!$client) {

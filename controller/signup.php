@@ -1,6 +1,4 @@
 <?php
-  require "/controller/api.php";
-
   $data = $_POST;
 
   // регистрация
@@ -60,16 +58,16 @@
       // хешируем пароль
       $user_password = password_hash($user_password, PASSWORD_DEFAULT);
 
-      $new_user_query = pg_query_params($conn, 'INSERT INTO person(first_name, last_name, user_name, user_password, phone, email) VALUES ($1, $2, $3, $4, $5, $6);', Array($first_name, $last_name, $user_name, $user_password, $phone, $email));
+      $new_user_query = pg_query_params($conn, 'INSERT INTO person(fio_person, user_name, telephone, password) VALUES ($1, $2, $3, $4);', Array($fio, $user_name, $phone, $user_password));
 
       $user_query = pg_query_params($conn, 'SELECT * FROM person WHERE user_name = $1', Array($user_name));
       $new_user = pg_fetch_object($user_query);
 
-      $new_client_query = pg_query_params($conn, 'INSERT INTO clients(person_id) VALUES ($1);', Array($new_user->id));
-      $client_query = pg_query_params($conn, 'SELECT * FROM clients WHERE person_id = $1;', Array($new_user->id));
-      $new_client = pg_fetch_object($client_query);
+      $new_reader_query = pg_query_params($conn, 'INSERT INTO reader(id_person) VALUES ($1);', Array($new_user->id_person));
+      $reader_query = pg_query_params($conn, 'SELECT * FROM reader WHERE id_person = $1;', Array($new_user->id_person));
+      $new_reader = pg_fetch_object($reader_query);
 
-      echo '<div style="color: green; ">Вы успешно зарегистрированы! Можно <a href="/views/login.php">авторизоваться</a>.</div><hr>';
+      echo '<div style="color: green; ">Вы успешно зарегистрированы! Можно <a href="../views/login.php">авторизоваться</a>.</div><hr>';
     } else {
       echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';
     }

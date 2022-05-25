@@ -9,6 +9,6 @@
   <title><?= $title ?></title>
 </head>
 <body>
-<?php require '/templates/navbar.php'; ?>
+<?php require '../templates/navbar.php'; ?>
 
 <div class="container">
