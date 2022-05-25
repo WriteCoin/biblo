@@ -1,6 +1,7 @@
 <?php
   require '../controller/api.php';
   $title = 'Авторизация';
+  require '../controller/login.php';
   require '../templates/header.php';
 ?>
 
@@ -12,18 +13,6 @@
 
   <label for="user_password">Ваш пароль:</label>
   <input type="password" name="user_password" placeholder="Введите пароль">
-
-  <p>
-    <label>
-      <input
-        class='checkbox'
-        type='checkbox'
-        name='user_role'
-        style='display: inline-block;'
-      />
-      <span>Являюсь администратором</span>
-    </label>
-  </p>
 
   <button class="btn-btn small" name="do_login" type="submit">Авторизоваться</button>
 </form>

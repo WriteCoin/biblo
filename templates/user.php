@@ -15,9 +15,9 @@
             <tbody>
               <?php while ($data = pg_fetch_object($query)) : ?>
                 <tr>
-                  <td><?= $data->fio ?></td>
+                  <td><?= $data->fio_person ?></td>
                   <td><?= $data->user_name ?></td>
-                  <td><?= $data->phone ?></td>
+                  <td><?= $data->telephone ?></td>
                 </tr>
               <?php endwhile ?>
             </tbody>
