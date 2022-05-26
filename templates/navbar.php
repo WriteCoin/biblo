@@ -9,7 +9,7 @@
         render_navbar_element('../views/index.php', 'Библиотека');
         render_navbar_element('../views/issues.php', 'Выдачи', 'Читатель');
         render_navbar_element('../views/signup.php', 'Регистрация'); 
-        render_navbar_element('../views/login.php', 'Войти'); 
+        render_navbar_element('../views/login.php', 'Войти', ''); 
         render_navbar_element('../controller/logout.php', 'Выйти', 'Читатель'); 
       ?>
     </ul>
