@@ -10,11 +10,15 @@
   $date_delivery = $get_post('Дата_возврата', '');
   if ($date_issuance || $date_delivery) {
     try {
+      $id_issuance = $get_post('id_issuance', 0);
+      if (!$id_issuance) {
+        die('Произошла ошибка');
+      }
       if ($date_issuance) {
-        $query_update = pg_query_params($conn, "UPDATE issuance SET date_issuance = $1 WHERE id_reader_ticket = $2", Array($date_issuance, $reader['id_reader']));
+        $query_update = pg_query_params($conn, "UPDATE issuance SET date_issuance = $1 WHERE id_reader_ticket = $2 AND id_issuance = $3", Array($date_issuance, $reader['id_reader'], $id_issuance));
       }
       if ($date_delivery) {
-        $query_update = pg_query_params($conn, "UPDATE issuance SET date_delivery = $1 WHERE id_reader_ticket = $2", Array($date_delivery, $reader['id_reader']));
+        $query_update = pg_query_params($conn, "UPDATE issuance SET date_delivery = $1 WHERE id_reader_ticket = $2 AND id_issuance = $3", Array($date_delivery, $reader['id_reader'], $id_issuance));
       }
       $_SESSION['op_message'] = 'Данные успешно изменены';
       header('Location: ../views/issuances.php');
