@@ -50,17 +50,24 @@
   $authors = apply_field_equal('author.fio', $authors, true);
   $genres = apply_field_equal('genre.genre', $genres, true);
 
-  $book_cond = get_sql_or('title', $book_titles);
-  $publishing_house_cond = get_sql_or('book.publishing_house', $publishing_houses);
+  // print_r($book_titles);
+  // echo '<br>';
+
+  $book_cond = get_sql_or($book_titles);
+  $publishing_house_cond = get_sql_or($publishing_houses);
   if ($publication_year_min && $publication_year_max) {
-    $publication_year_cond = "$publication_year_min >= book.year_publication AND book.year_publication <= $publication_year_max";
+    $publication_year_cond = "book.year_publication BETWEEN '$publication_year_min' AND '$publication_year_max'";
   } else {
     $publication_year_cond = '';
   }
-  $author_cond = get_sql_or('author.fio', $authors);
-  $genre_cond = get_sql_or('genre.genre', $genres);
+  $author_cond = get_sql_or($authors);
+  $genre_cond = get_sql_or($genres);
+
+  // echo $book_cond . '<br>';
 
   $cond = get_sql_and([$book_cond, $publishing_house_cond, $publication_year_cond, $author_cond, $genre_cond]);
+
+  // echo $cond . '<br>';
 
   $sql ="
     SELECT book.id_book, book.title AS \"Название\", book.publishing_house AS \"Издательство\", book.year_publication AS \"Год издания\", author.fio AS \"ФИО автора\", genre.genre AS \"Жанр\"
@@ -71,6 +78,8 @@
       INNER JOIN genre ON genre.id_genre = genre_book.id_genre
     WHERE ($cond);
     ";
+
+  // echo $sql . '<br>';
 
   // echo $sql . '<br>';
   $query = pg_query($conn, $sql);

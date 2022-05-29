@@ -39,7 +39,7 @@
 
   $get_post = fn($str_data, $default) => isset($_POST[$str_data]) ? $_POST[$str_data] : $default;
 
-  $get_GET = fn($str_data, $default) => isset($_GET[$str_data]) ? $secure_data($_GET[$str_data]) : $default;
+  $get_GET = fn($str_data, $default) => isset($_GET[$str_data]) ? $_GET[$str_data] : $default;
 
   function get_sql_cond($operator, $default_cond) {
     return function($conds) use ($operator, $default_cond) {
@@ -50,7 +50,11 @@
       $num = count($conds);
       for ($i = 0; $i < $num; $i++) {
         if (!$conds[$i]) {
-          $conds[$i] = '(' . $default_cond . ')';
+          if ($num == 1 && $default_cond == 'false' && $operator == 'or') {
+            $conds[$i] = '(true)';
+          } else {
+            $conds[$i] = '(' . $default_cond . ')';
+          }
         }
         $result = $result . $conds[$i];
         $result = ($i !== $num - 1) ? $result . ' ' . $operator . ' ' : $result;
@@ -76,10 +80,12 @@
     }
     $num = count($conds);
     for ($i = 0; $i < $num; $i++) {
-      if ($is_literal) {
-        $conds[$i] = '\'' . $conds[$i] . '\'';
+      if ($conds[$i]) {
+        if ($is_literal) {
+          $conds[$i] = '\'' . $conds[$i] . '\'';
+        }
+        $conds[$i] = "$field = $conds[$i]";
       }
-      $conds[$i] = "$field = $conds[$i]";
     }
     return $conds;
   }

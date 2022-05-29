@@ -2,14 +2,19 @@
 <table>
   <thead>
     <tr>
+      <?php if ($data) : ?>
       <?php foreach ($data as $key => $value) { ?>
         <?php if ($key != 'id_book') : ?>
           <th><?= $key ?></th>
         <?php endif ?>
       <?php } ?>
+      <?php endif ?>
     </tr>
   </thead>
   <tbody>
+    <?php if (!pg_num_rows($query)) : ?>
+      <p><i>Книг не найдено</i></p>
+    <?php endif ?>
     <?php while ($data = pg_fetch_assoc($query)) : ?>
       <!-- <tr class="tr_book" onmouseover='this.firstChild.lastChild.firstChild.removeAttribute("hidden")' onmouseout='this.firstChild.lastChild.firstChild.setAttribute("hidden", "hidden")'> -->
       <!-- <tr class="tr_book" onmouseover='console.log(this.firstChild.nextElementSibling.tagName.toLowerCase()); console.log(document.getElementsByTagName(".tr_book > " + this.firstChild.nextElementSibling.tagName.toLowerCase() + " > td"))'> -->
