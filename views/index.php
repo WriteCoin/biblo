@@ -12,6 +12,6 @@
 <?php require '../templates/book_filter.php'; ?>
 
 <h2>Книги</h2>
-<?php require '../controller/books.php'; require '../templates/table_view.php'; ?>
+<?php require '../controller/books.php'; require '../templates/books.php'; ?>
 
 <?php require '../templates/footer.php'; ?>

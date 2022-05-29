@@ -86,4 +86,29 @@
   
   // print_r(apply_field_equal('name', ['1', '2', '3']));
 
+  function get_date($date_str) {
+    $timeZone = 'T';
+    $dateTime = new DateTime($date_str);
+    $dateTime->setTimeZone(new DateTimeZone($timeZone));
+    $dateTime->add(new DateInterval('PT10H'));
+    return $dateTime;
+  }
+
+  function site_message() {
+    if (isset($_SESSION['op_message'])) {
+      echo '<div style="color: green; ">' . $_SESSION['op_message'] . '</div><hr>';
+      unset($_SESSION['op_message']);
+    } else if (isset($_SESSION['op_message_error'])) {
+      echo '<div style="color: red; ">' . $_SESSION['op_message_error'] . '</div><hr>';
+      unset($_SESSION['op_message_error']);
+    }
+  }
+
+  // function display_error($msg) {
+  //   echo '<div style="color: red; ">' . $msg . '</div><hr>';
+  // }
+
+  // function display_success($msg) {
+  //   echo '<div style="color: white; ">' . $msg . '</div><hr>';
+  // }
 ?>
