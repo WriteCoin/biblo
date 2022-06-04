@@ -27,6 +27,8 @@
     }
   }
 
+  $id_reader = $reader['id_reader'];
+
   $sql ="
     SELECT issuance.id_issuance, book.title AS \"Название\", book.publishing_house AS \"Издательство\", book.year_publication AS \"Год издания\", author.fio AS \"ФИО автора\", genre.genre AS \"Жанр\",
            exemplar.lost AS \"Не возвращена?\", issuance.date_issuance AS \"Дата_выдачи\", issuance.date_delivery AS \"Дата_возврата\", issuance.date_actual_delivery AS \"Действительная дата возврата\"
@@ -36,7 +38,8 @@
       INNER JOIN genre_book ON genre_book.id_book = book.id_book
       INNER JOIN genre ON genre.id_genre = genre_book.id_genre
       INNER JOIN exemplar ON exemplar.id_book = book.id_book
-      INNER JOIN issuance ON issuance.id_exemplar = exemplar.id_exemplar;
+      INNER JOIN issuance ON issuance.id_exemplar = exemplar.id_exemplar
+    WHERE id_reader_ticket = $id_reader;
   ";
 
   $query = pg_query($conn, $sql);
